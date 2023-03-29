@@ -18,9 +18,28 @@
             let canvas_buffer = canvas_context.getImageData(0, 0, canvas.width, canvas.height);
             let canvas_pitch = canvas_buffer.width * 4;
 
-            
+            let PutPixel = function (x, y, color) {
+                x = canvas.width/2 + x;
+                y = canvas.height/2 - y - 1;
+                
+                if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) {
+                    return;
+                }
 
+                let offset = (y * canvas_pitch) + (x * 4);
+                canvas_buffer.data[offset++] = color[0];
+                canvas_buffer.data[offset++] = color[1];
+                canvas_buffer.data[offset++] = color[2];
+                // Full opacity
+                canvas_buffer.data[offset++] = 255;
+            }
 
+            let Render = function () {
+                canvas_context.putImageData(canvas_buffer, 0, 0);
+            }
+
+            // Ray-tracer
+            Render();
         </script>
     </body>
 </html>
