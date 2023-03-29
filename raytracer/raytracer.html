@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Raytracer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <canvas height="600" width="600" style="border: 1px grey solid;" id="canvas"></canvas>
+        <script src="" async defer>
+            // Canvas
+
+            let canvas = document.getElementById("canvas");
+            let canvas_context = canvas.getContext("2d");
+            let canvas_buffer = canvas_context.getImageData(0, 0, canvas.width, canvas.height);
+            let canvas_pitch = canvas_buffer.width * 4;
+
+            let PutPixel = function (x, y, color) {
+                x = canvas.width/2 + x;
+                y = canvas.height/2 - y - 1;
+                
+                if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) {
+                    return;
+                }
+
+                let offset = (y * canvas_pitch) + (x * 4);
+                canvas_buffer.data[offset++] = color[0];
+                canvas_buffer.data[offset++] = color[1];
+                canvas_buffer.data[offset++] = color[2];
+                // Full opacity
+                canvas_buffer.data[offset++] = 255;
+            }
+
+            let Render = function () {
+                canvas_context.putImageData(canvas_buffer, 0, 0);
+            }
+
+            // Ray-tracer
+            Render();
+        </script>
+    </body>
+</html>
+
