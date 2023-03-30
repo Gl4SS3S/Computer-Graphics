@@ -14,8 +14,14 @@
             // Canvas
 
             let canvas = document.getElementById("canvas");
+            
+            // 2D space for drawing
             let canvas_context = canvas.getContext("2d");
+
+            // Create a buffer to hold the image data - the canvas is 600x600 pixels
             let canvas_buffer = canvas_context.getImageData(0, 0, canvas.width, canvas.height);
+
+            
             let canvas_pitch = canvas_buffer.width * 4;
 
             let PutPixel = function (x, y, color) {
@@ -46,6 +52,12 @@
             }
 
             // Scene Setup
+            // ----------------
+            // Determine the size of the viewport
+            // Determine the distance from the camera to the projection plane
+            // Set the camera position to the origin which has a z, y, and x value of 0
+            // Set the background color to white
+            // Create the spheres
             let viewport_size = 1;
             let projection_plane_distance = 1;
             let camera_position = [0, 0, 0];
